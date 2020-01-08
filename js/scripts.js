@@ -4,7 +4,9 @@
 // Variable that holds the div with the id of gallery
 var gallery = $('#gallery');
 // variable that holds the url path to API
-var urlAPI = 'https://randomuser.me/api/?results=12';
+var urlAPI = 'https://randomuser.me/api/';
+
+// ?results=12
 
 // function that gets the JSON from a url and uses a callback on the data within
 function getJSON(url, callback){
@@ -30,6 +32,7 @@ function generateCard(data){
   const section = document.createElement('section');
   // appends the element to the div
   gallery.append(section);
+  // console.log(data);
   // creates the card for each employee with summary of person
   section.innerHTML = `
   <div class="card">
@@ -52,8 +55,13 @@ function generateCard(data){
     var day = dob.substr(8, 2);
     var year = dob.substr(0, 4);
 
+    // variable that creates a div for the modalWindow
+    var modalWindow = document.createElement('div');
+
+    // adds the div to the body
+    document.body.append(modalWindow);
     // creates the modal window with detailed info on person clicked
-    event.target.innerHTML = `
+    modalWindow.innerHTML = `
       <div class="modal-container">
           <div class="modal">
               <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
@@ -71,19 +79,21 @@ function generateCard(data){
       `;
 
       // variable that holds the x button
-      var button = document.getElementById("modal-close-btn");
-
+      var xButton = document.getElementById("modal-close-btn");
       // event listener that waits until x button is clicked
-      button.addEventListener('click', (button) => {
+      xButton.addEventListener('click', (button) => {
         // removes the modal window
-        event.target.remove();
+        modalWindow.remove();
       });
   });
 };
 
 // gets the JSON from the API and calls back the generateHTML() function for the data
-getJSON(urlAPI, (json) => {
-  json.results.map( person => {
-    getJSON(urlAPI, generateCard);
+// makes sure only 12 users are GET from the API
+for (let i = 0; i < 12; i++){
+  getJSON(urlAPI, (json) => {
+    json.results.map( person => {
+      getJSON(urlAPI, generateCard);
+    });
   });
-});
+}
