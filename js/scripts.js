@@ -6,8 +6,6 @@ var gallery = $('#gallery');
 // variable that holds the url path to API
 var urlAPI = 'https://randomuser.me/api/';
 
-// ?results=12
-
 // function that gets the JSON from a url and uses a callback on the data within
 function getJSON(url, callback){
     // create XMLHttp request
