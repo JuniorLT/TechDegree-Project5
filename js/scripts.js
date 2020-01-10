@@ -4,7 +4,7 @@
 // Variable that holds the div with the id of gallery
 var gallery = $('#gallery');
 // variable that holds the url path to API
-var urlAPI = 'https://randomuser.me/api/';
+var urlAPI = 'https://randomuser.me/api/?results=12';
 
 // function that gets the JSON from a url and uses a callback on the data within
 function getJSON(url, callback){
@@ -88,10 +88,8 @@ function generateCard(data){
 
 // gets the JSON from the API and calls back the generateHTML() function for the data
 // makes sure only 12 users are GET from the API
-for (let i = 0; i < 12; i++){
-  getJSON(urlAPI, (json) => {
-    json.results.map( person => {
-      getJSON(urlAPI, generateCard);
-    });
+getJSON(urlAPI, (json) => {
+  json.results.map( person => {
+    getJSON(urlAPI, generateCard);
   });
-}
+});
