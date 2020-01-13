@@ -91,8 +91,4 @@ function generateCard(data){
 
 // gets the JSON from the API and calls back the generateHTML() function for the data
 // makes sure only 12 users are GET from the API
-getJSON(urlAPI, (json) => {
-  json.results.map( person => {
-    getJSON(urlAPI, generateCard);
-  });
-});
+getJSON(urlAPI, generateCard);
